@@ -18,4 +18,8 @@ class Rider < ApplicationRecord
       "#{given_name} #{family_name}"
     end
   end
+
+  def age
+    ((Time.zone.now - birthday.to_time) / 1.year.seconds).floor
+  end
 end
