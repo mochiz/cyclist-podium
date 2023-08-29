@@ -1,4 +1,9 @@
 import type { Preview } from "@storybook/react";
+// @see https://storybook.js.org/addons/msw-storybook-addon
+import { initialize, mswLoader } from "msw-storybook-addon";
+
+// Initialize MSW
+initialize();
 
 const preview: Preview = {
   parameters: {
@@ -10,6 +15,8 @@ const preview: Preview = {
       },
     },
   },
+  // Provide the MSW addon loader globally
+  loaders: [mswLoader],
 };
 
 export default preview;

@@ -17,6 +17,7 @@ const config: StorybookConfig = {
   docs: {
     autodocs: "tag",
   },
+  staticDirs: ["../public"],
   // @エイリアスを有効にする
   // @see https://storybook.js.org/docs/react/builders/webpack
   async webpackFinal(config) {

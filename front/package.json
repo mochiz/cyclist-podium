@@ -35,6 +35,11 @@
     "@storybook/react": "^7.3.2",
     "@storybook/testing-library": "^0.2.0",
     "eslint-plugin-storybook": "^0.6.13",
+    "msw": "^1.2.5",
+    "msw-storybook-addon": "^1.8.0",
     "storybook": "^7.3.2"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }
