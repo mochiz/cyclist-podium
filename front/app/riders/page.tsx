@@ -1,13 +1,16 @@
 "use client";
 
-import { gql, useQuery } from "urql";
+import { useQuery } from "urql";
+import { graphql } from "@/src/gql";
 
-const getRidersQueryDocument = gql(`
+const getRidersQueryDocument = graphql(`
   query getRiders {
     riders {
       id
       fullName
       nationality
+      birthday
+      age
     }
   }
 `);
@@ -28,9 +31,9 @@ const Riders = () => {
 
   return (
     <ul>
-      {riders.map((rider) => (
+      {riders?.map((rider) => (
         <li key={rider.id}>
-          {rider.fullName}: {rider.age}
+          氏名: {rider.fullName}、 年齢: {rider.age}
         </li>
       ))}
     </ul>

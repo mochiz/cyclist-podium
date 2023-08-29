@@ -52,7 +52,7 @@ export type Rider = {
 export type GetRidersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetRidersQuery = { __typename?: 'Query', riders?: Array<{ __typename?: 'Rider', id: string, fullName?: string | null, nationality?: string | null }> | null };
+export type GetRidersQuery = { __typename?: 'Query', riders?: Array<{ __typename?: 'Rider', id: string, fullName?: string | null, nationality?: string | null, birthday?: any | null, age?: number | null }> | null };
 
 
-export const GetRidersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getRiders"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"riders"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"nationality"}}]}}]}}]} as unknown as DocumentNode<GetRidersQuery, GetRidersQueryVariables>;
+export const GetRidersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getRiders"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"riders"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"nationality"}},{"kind":"Field","name":{"kind":"Name","value":"birthday"}},{"kind":"Field","name":{"kind":"Name","value":"age"}}]}}]}}]} as unknown as DocumentNode<GetRidersQuery, GetRidersQueryVariables>;
