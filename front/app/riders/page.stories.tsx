@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Provider } from "urql";
+import { ChakraProviders } from "@/app/chakra-providers";
+import { Container } from "@chakra-ui/react";
 import { client } from "@/.storybook/client";
 import { handlers } from "@/src/mocks/handlers";
 
@@ -8,7 +10,11 @@ import Page from "./page";
 const Template = () => (
   <div>
     <Provider value={client}>
-      <Page />
+      <ChakraProviders>
+        <Container maxW="container.lg">
+          <Page />
+        </Container>
+      </ChakraProviders>
     </Provider>
   </div>
 );
