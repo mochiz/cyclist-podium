@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Provider } from "urql";
 import { client } from "@/.storybook/client";
+import { handlers } from "@/src/mocks/handlers";
 
 import Page from "./page";
 
@@ -24,4 +25,10 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  parameters: {
+    msw: {
+      handlers,
+    },
+  },
+};

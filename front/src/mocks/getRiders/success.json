@@ -1,0 +1,70 @@
+{
+  "data": {
+    "riders": [
+      {
+        "id": "1",
+        "fullName": "Tadej Pogacar",
+        "nationality": "Slovenia",
+        "birthday": "1998-09-21",
+        "age": 24,
+        "__typename": "Rider"
+      },
+      {
+        "id": "2",
+        "fullName": "Primoz Roglic",
+        "nationality": "Slovenia",
+        "birthday": "1989-10-29",
+        "age": 33,
+        "__typename": "Rider"
+      },
+      {
+        "id": "3",
+        "fullName": "Egan Bernal",
+        "nationality": "Colombia",
+        "birthday": "1997-01-13",
+        "age": 26,
+        "__typename": "Rider"
+      },
+      {
+        "id": "4",
+        "fullName": "Julian Alaphilippe",
+        "nationality": "France",
+        "birthday": "1992-06-11",
+        "age": 31,
+        "__typename": "Rider"
+      },
+      {
+        "id": "5",
+        "fullName": "Wout Van Aert",
+        "nationality": "Belgium",
+        "birthday": "1994-09-15",
+        "age": 28,
+        "__typename": "Rider"
+      },
+      {
+        "id": "6",
+        "fullName": "Mathieu Van der Poel",
+        "nationality": "Netherlands",
+        "birthday": "1995-01-19",
+        "age": 28,
+        "__typename": "Rider"
+      },
+      {
+        "id": "7",
+        "fullName": "新城 幸也",
+        "nationality": "Japan",
+        "birthday": "1984-09-22",
+        "age": 38,
+        "__typename": "Rider"
+      },
+      {
+        "id": "8",
+        "fullName": "別府 史之",
+        "nationality": "Japan",
+        "birthday": "1983-04-10",
+        "age": 40,
+        "__typename": "Rider"
+      }
+    ]
+  }
+}
