@@ -1,6 +1,6 @@
 ## Cyclist Podium
 
-Rails7+Next13 のサンプルプロジェクト
+Rails7+Next13 のサンプルアプリ
 
 ## アーキテクチャ
 
