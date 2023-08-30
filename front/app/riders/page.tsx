@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useQuery } from "urql";
 import { graphql } from "@/src/gql";
 import {
@@ -45,7 +46,9 @@ const Riders = () => {
       {riders?.map((rider) => (
         <Card key={rider.id}>
           <CardHeader>
-            <Heading size="md">{rider.fullName}</Heading>
+            <Link href={`/riders/${rider.id}`}>
+              <Heading size="md">{rider.fullName}</Heading>
+            </Link>
           </CardHeader>
           <CardBody>
             <Stack divider={<StackDivider />} spacing="4">

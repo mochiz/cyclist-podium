@@ -8,19 +8,19 @@ import { handlers } from "@/src/mocks/handlers";
 import Page from "./page";
 
 const Template = () => (
-  <>
+  <div>
     <Provider value={client}>
       <ChakraProviders>
         <Container maxW="container.lg">
-          <Page />
+          <Page params={{ id: "1" }} />
         </Container>
       </ChakraProviders>
     </Provider>
-  </>
+  </div>
 );
 
 const meta = {
-  title: "App/Riders",
+  title: "App/Riders/[id]",
   component: Template,
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/react/configure/story-layout

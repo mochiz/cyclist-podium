@@ -1,0 +1,14 @@
+{
+  "data": {
+    "rider": {
+      "id": "1",
+      "fullName": "Tadej Pogacar",
+      "familyName": "Pogacar",
+      "givenName": "Tadej",
+      "nationality": "Slovenia",
+      "birthday": "1998-09-23",
+      "age": 24,
+      "__typename": "Rider"
+    }
+  }
+}
