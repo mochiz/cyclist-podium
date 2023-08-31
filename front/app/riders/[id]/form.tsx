@@ -55,8 +55,7 @@ const UpdateRiderForm = (props: { rider: Rider }) => {
       ...values,
       birthday: values.birthday.toISOString().replace(/T.*/, ""),
     };
-    console.log(input);
-    // executeMutation({ input });
+    executeMutation({ input });
   }
 
   return (

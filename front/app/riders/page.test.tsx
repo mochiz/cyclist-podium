@@ -16,7 +16,7 @@ const responseState = {
 };
 
 describe("Page", () => {
-  it("renders a heading", async () => {
+  it("ライダー一覧が表示されること", async () => {
     render(
       <Provider value={responseState}>
         <Page />

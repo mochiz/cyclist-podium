@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { waitFor, within } from "@storybook/testing-library";
+
 import { Provider } from "urql";
 import { ChakraProviders } from "@/app/chakra-providers";
 import { Container } from "@chakra-ui/react";
@@ -37,4 +39,9 @@ export const Default: Story = {
       handlers,
     },
   },
+};
+
+Default.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  await waitFor(() => canvas.getByRole("heading", { name: "Tadej Pogacar" }));
 };
