@@ -38,6 +38,7 @@ export default function Page({ params }: { params: { id: string } }) {
   return (
     <Container maxW="container.sm" p={10} bg="white">
       <Detail rider={rider} />
+      <UpdateRiderForm rider={rider} />
     </Container>
   );
 }
