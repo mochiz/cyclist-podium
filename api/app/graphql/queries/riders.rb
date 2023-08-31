@@ -5,7 +5,7 @@ module Queries
     type [Types::ObjectTypes::RiderType], null: true
 
     def resolve
-      ::Rider.all
+      ::Rider.order(:id)
     end
   end
 end
