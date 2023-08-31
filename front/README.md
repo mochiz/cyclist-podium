@@ -514,6 +514,53 @@ $ touch "app/riders/[id]/detail.tsx" "app/riders/[id]/detail.stories.tsx"
 $ touch "app/riders/[id]/form.tsx" "app/riders/[id]/form.stories.tsx"
 ```
 
+```ts
+"use client";
+
+import { useQuery } from "urql";
+import { graphql } from "@/src/gql";
+import Detail from "./detail";
+import UpdateRiderForm from "./form";
+import { Container } from "@chakra-ui/react";
+
+const getRiderQueryDocument = graphql(`
+  query getRider($id: ID!) {
+    rider(id: $id) {
+      id
+      fullName
+      familyName
+      givenName
+      nationality
+      birthday
+      age
+    }
+  }
+`);
+
+const useGetRiderQuery = (id: string) => {
+  const [{ data, fetching, error }] = useQuery({
+    query: getRiderQueryDocument,
+    variables: { id },
+  });
+  const rider = data ? data.rider : { id: "" };
+  return { rider, fetching, error };
+};
+
+export default function Page({ params }: { params: { id: string } }) {
+  const { rider, fetching, error } = useGetRiderQuery(params.id);
+
+  if (fetching) return <p>Loading...</p>;
+  if (error) return <p>Oh no... {error.message}</p>;
+
+  return (
+    <Container maxW="container.sm" p={10} bg="white">
+      <Detail rider={rider} />
+      <UpdateRiderForm rider={rider} />
+    </Container>
+  );
+}
+```
+
 ### Zod のセットアップ
 
 https://zod.dev/
@@ -522,8 +569,167 @@ https://zod.dev/
 $ npm install zod @hookform/resolvers
 ```
 
----
+### jest のセットアップ
 
-## ディレクトリ構成
+https://nextjs.org/docs/pages/building-your-application/optimizing/testing#jest-and-react-testing-library
 
-collocation fragments
+Urql のモックについてはこちら
+https://formidable.com/open-source/urql/docs/advanced/testing/
+
+```
+$ npm install --save-dev jest jest-environment-jsdom @testing-library/react @testing-library/jest-dom
+$ npm install --save-dev @types/jest
+
+$ touch jest.config.mjs
+```
+
+```js
+// jest.config.mjs
+import nextJest from "next/jest.js";
+
+const createJestConfig = nextJest({
+  // Provide the path to your Next.js app to load next.config.js and .env files in your test environment
+  dir: "./",
+});
+
+// Add any custom config to be passed to Jest
+/** @type {import('jest').Config} */
+const config = {
+  // Add more setup options before each test is run
+  // setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
+
+  testEnvironment: "jest-environment-jsdom",
+};
+
+// createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
+export default createJestConfig(config);
+```
+
+```ts
+import Page from "./page";
+import "@testing-library/jest-dom";
+import { render, screen } from "@testing-library/react";
+import { Provider } from "urql";
+import { fromValue } from "wonka";
+import getRidersJson from "@/src/mocks/getRiders/success.json";
+
+const mockClient = {
+  executeQuery: jest.fn(() => {
+    getRidersJson;
+  }),
+};
+
+const responseState = {
+  executeQuery: () => fromValue(getRidersJson),
+};
+
+describe("Page", () => {
+  it("renders a heading", async () => {
+    render(
+      <Provider value={responseState}>
+        <Page />
+      </Provider>
+    );
+
+    const heading: HTMLElement = await screen.getByRole("heading", {
+      name: /Tadej Pogacar/i,
+    });
+
+    expect(heading).toBeInTheDocument();
+  });
+});
+```
+
+storybook に play 関数を追加してインタラクションテストを実行できるようにする
+
+```ts
+// app/riders/[id]/form.stories.tsx
+import type { Meta, StoryObj } from "@storybook/react";
+import { userEvent, within } from "@storybook/testing-library";
+import { Provider } from "urql";
+import { ChakraProviders } from "@/app/chakra-providers";
+import { Container } from "@chakra-ui/react";
+import { client } from "@/.storybook/client";
+import { handlers } from "@/src/mocks/handlers";
+
+import Component from "./form";
+
+const Template = (args) => (
+  <>
+    <Provider value={client}>
+      <ChakraProviders>
+        <Container maxW="container.lg">
+          <Component {...args} />
+        </Container>
+      </ChakraProviders>
+    </Provider>
+  </>
+);
+
+const meta = {
+  title: "App/Riders/[id]/form",
+  component: Template,
+  parameters: {
+    // More on how to position stories at: https://storybook.js.org/docs/react/configure/story-layout
+    layout: "fullscreen",
+  },
+} satisfies Meta<typeof Component>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  parameters: {
+    msw: {
+      handlers,
+    },
+  },
+  args: {
+    rider: {
+      id: "1",
+      fullName: "Tadej Pogacar",
+      familyName: "Pogacar",
+      givenName: "Tadej",
+      nationality: "Slovenia",
+      birthday: "1998-09-23",
+      age: "24",
+    },
+  },
+};
+
+Default.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  await userEvent.clear(canvas.getByLabelText("姓"));
+  await userEvent.clear(canvas.getByLabelText("名"));
+  await userEvent.type(canvas.getByLabelText("姓"), "Poga");
+  await userEvent.type(canvas.getByLabelText("名"), "Tade");
+  await userEvent.click(canvas.getByRole("button", { name: "Submit" }));
+};
+```
+
+jest から storybook をテスト実行できるようにする
+
+```ts
+// app/riders/[id]/form.test.tsx
+import { composeStories } from "@storybook/react";
+import { waitFor, within } from "@storybook/testing-library";
+import { render } from "@testing-library/react";
+import * as stories from "./form.stories";
+
+describe("Form", () => {
+  const { Default } = composeStories(stories);
+
+  it("フォームに入力できること", async () => {
+    const { container } = render(<Default />);
+    Default.play({ canvasElement: container });
+  });
+});
+```
+
+### playwright のセットアップ
+
+https://nextjs.org/docs/pages/building-your-application/optimizing/testing#playwright
+
+```
+$ npx create-next-app@latest --example with-playwright with-playwright-app
+```
