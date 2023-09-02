@@ -641,6 +641,7 @@ describe("Page", () => {
 ```
 
 storybook に play 関数を追加してインタラクションテストを実行できるようにする
+https://storybook.js.org/docs/react/writing-stories/play-function
 
 ```ts
 // app/riders/[id]/form.stories.tsx
@@ -731,5 +732,21 @@ describe("Form", () => {
 https://nextjs.org/docs/pages/building-your-application/optimizing/testing#playwright
 
 ```
-$ npx create-next-app@latest --example with-playwright with-playwright-app
+$ npm install --save-dev @playwright/test
+
+$ mkdir e2e
+$ touch e2e/riders.spec.ts
+```
+
+```ts
+// e2e/riders.spec.ts
+import { test, expect } from "@playwright/test";
+
+test("should navigate to the about page", async ({ page }) => {
+  // Start from the index page (the baseURL is set via the webServer in the playwright.config.ts)
+  await page.goto("http://localhost:8000/riders");
+  await expect(page.locator("h1")).toContainText("Cyclist Podium");
+
+  await expect(page.locator("h2")).toContainText("Tadey Pogacar");
+});
 ```
