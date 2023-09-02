@@ -1,55 +1,40 @@
-name: Run rspec
-
+name: RSpec
 on:
   push:
+    branches: [main]
   pull_request:
-
+    branches: [main]
 jobs:
-  rspec:
-    runs-on: ubuntu-latest
+  test:
     timeout-minutes: 10
+    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: api
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: postgresql://postgres@localhost:5432/postgres?encoding=utf8&pool=5&timeout=5000
+      CYCLIST_PODIUM_API_DATABASE_PASSWORD: postgres
     services:
-      mysql:
-        image: mysql:8.0
-        ports:
-          - 3306:3306
-        env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: yes
-        options: --health-cmd "mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 10
-
+      postgres:
+        image: postgres:10.3
+        ports: ["5432:5432"]
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Set up Ruby
+      - name: Setup Ruby Env
         uses: ruby/setup-ruby@v1
         with:
+          ruby-version: "3.2.0"
           bundler-cache: true
-
-      - name: Cache node modules
-        uses: actions/cache@v2
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
       - name: Bundler and gem install
         run: |
           gem install bundler
           bundle install --jobs 4 --retry 3 --path vendor/bundle
-
-      - name: Yarn install
-        run: yarn install --check-files
-
-      - name: Database create and migrate
+      - name: Database Setup
         run: |
-          cp config/database.yml.ci config/database.yml
           bundle exec rails db:create RAILS_ENV=test
           bundle exec rails db:migrate RAILS_ENV=test
-
-      - name: Run rspec
+      - name: Run tests
         run: bundle exec rspec

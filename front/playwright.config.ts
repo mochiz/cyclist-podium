@@ -70,8 +70,8 @@ export default defineConfig({
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: "npm dev -- --experimental-test-proxy",
+    command: "npm run dev",
     url: "http://localhost:8000",
-    reuseExistingServer: !process.env.CI,
+    // reuseExistingServer: !process.env.CI,
   },
 });
