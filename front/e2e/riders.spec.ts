@@ -13,9 +13,7 @@ test("ライダー一覧を表示できる", async ({ page }) => {
   await page.goto("http://localhost:8000/riders");
   await expect(page.locator("h1")).toContainText("Cyclist Podium");
 
-  await expect(
-    page.getByRole("link", { name: "Tadej Pogacarrrr" })
-  ).toBeVisible();
+  await expect(page.getByRole("link", { name: "Tadej Pogacar" })).toBeVisible();
 });
 
 test("ライダー情報を編集できる", async ({ page }) => {
