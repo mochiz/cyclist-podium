@@ -65,3 +65,8 @@
 # typescript
 /front/*.tsbuildinfo
 /front/next-env.d.ts
+
+# playwright
+/front/test-results/
+/front/playwright-report/
+/front/playwright/.cache/
