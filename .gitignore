@@ -30,6 +30,8 @@
 # Ignore master key for decrypting credentials and more.
 /api/config/master.key
 
+/api/.envrc
+
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
@@ -70,3 +72,7 @@
 /front/test-results/
 /front/playwright-report/
 /front/playwright/.cache/
+
+# Ignore tmp directory
+/tmp/*
+!/tmp/.gitkeep
