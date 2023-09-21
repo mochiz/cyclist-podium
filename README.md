@@ -47,10 +47,47 @@ Rails7+Next13 のサンプルアプリ
 
 ## アプリの起動
 
-docker-compose で db, api, front を起動できるようにしています。
+開発環境では docker-compose で db, api, front を起動できるようにしています。
 
 ```sh
 $ docker-compose up
+
+# db, api, front コンテナが起動していることを確認する
+[+] Running 3/0
+ ✔ Container cyclist-podium-db-1     Created
+ ✔ Container cyclist-podium-front-1  Created
+ ✔ Container cyclist-podium-api-1    Created
+
+Attaching to cyclist-podium-api-1, cyclist-podium-db-1, cyclist-podium-front-1
+cyclist-podium-db-1     |
+cyclist-podium-db-1     | PostgreSQL Database directory appears to contain a database; Skipping initialization
+cyclist-podium-db-1     |
+cyclist-podium-db-1     | 2023-09-21 17:00:26.322 JST [1] LOG:  starting PostgreSQL 16.0 (Debian 16.0-1.pgdg120+1) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14) 12.2.0, 64-bit
+cyclist-podium-db-1     | 2023-09-21 17:00:26.322 JST [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+cyclist-podium-db-1     | 2023-09-21 17:00:26.322 JST [1] LOG:  listening on IPv6 address "::", port 5432
+cyclist-podium-db-1     | 2023-09-21 17:00:26.324 JST [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+cyclist-podium-db-1     | 2023-09-21 17:00:26.334 JST [29] LOG:  database system was shut down at 2023-09-21 17:00:12 JST
+cyclist-podium-db-1     | 2023-09-21 17:00:26.343 JST [1] LOG:  database system is ready to accept connections
+cyclist-podium-front-1  |
+cyclist-podium-front-1  | > cyclist-podium@0.1.0 dev
+cyclist-podium-front-1  | > next dev --port 8000
+cyclist-podium-front-1  |
+cyclist-podium-front-1  | - ready started server on [::]:8000, url: http://localhost:8000
+cyclist-podium-api-1    | => Booting Puma
+cyclist-podium-api-1    | => Rails 7.1.0.beta1 application starting in development
+cyclist-podium-api-1    | => Run `bin/rails server --help` for more startup options
+cyclist-podium-api-1    | Puma starting in single mode...
+cyclist-podium-api-1    | * Puma version: 5.6.7 (ruby 3.2.0-p0) ("Birdie's Version")
+cyclist-podium-api-1    | *  Min threads: 5
+cyclist-podium-api-1    | *  Max threads: 5
+cyclist-podium-api-1    | *  Environment: development
+cyclist-podium-api-1    | *          PID: 1
+cyclist-podium-api-1    | * Listening on http://0.0.0.0:3000
+cyclist-podium-api-1    | Use Ctrl-C to stop
+cyclist-podium-front-1  | - event compiled client and server successfully in 311 ms (20 modules)
+cyclist-podium-front-1  | - wait compiling...
+cyclist-podium-front-1  | - event compiled client and server successfully in 184 ms (20 modules)
+
 ```
 
 初回は Rails の DB セットアップを実行してください。
