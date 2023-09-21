@@ -20,15 +20,15 @@ services:
       - "3000:3000"
     depends_on:
       - db
-  # front:
-  #   build:
-  #     context: ./front/
-  #     dockerfile: Dockerfile
-  #   volumes:
-  #     - ./front:/usr/src/app
-  #   command: "npm run dev"
-  #   ports:
-  #     - "8000:8000"
+  front:
+    build:
+      context: ./front/
+      dockerfile: Dockerfile
+    volumes:
+      - ./front:/usr/src/app
+    command: "npm run dev"
+    ports:
+      - "8000:8000"
 volumes:
   bundle:
   postgres:
