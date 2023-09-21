@@ -40,7 +40,35 @@ Rails7+Next13 のサンプルアプリ
   - コードジェネレーター
     - Scaffdog
 
-## セットアップ手順
+## 作成手順手順
 
-- [バックエンドセットアップ手順](./api/README.md)
-- [フロントセットアップ手順](./front/README.md)
+- [バックエンド作成手順](./api/README.md)
+- [フロント作成手順](./front/README.md)
+
+## アプリの起動
+
+docker-compose で db, api, front を起動できるようにしています。
+
+```sh
+$ docker-compose up
+```
+
+初回は Rails の DB セットアップを実行してください。
+
+```sh
+# DBのセットアップとシードデータの投入
+$ docker-compose exec api bin/rails db:prepare
+$ docker-compose exec api bin/rails db:seed_fu
+```
+
+### 動作確認
+
+#### API が起動していることを確認する
+
+graphiql が表示できることを確認する
+http://localhost:3000/graphiql
+
+#### フロントが起動していることを確認する
+
+選手一覧が表示できることを確認する
+http://localhost:8000/riders
