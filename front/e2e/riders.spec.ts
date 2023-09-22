@@ -22,6 +22,8 @@ test("ライダー情報を編集できる", async ({ page }) => {
     page.getByRole("heading", { name: "Tadej Pogacar" })
   ).toBeVisible();
 
+  // フォームに入力できること
+  await expect(page.getByRole("button", { name: "Submit" })).toBeVisible();
   await page.getByLabel("姓").fill("Poga");
   await page.getByLabel("名").fill("Tade");
   await page.getByRole("button", { name: "Submit" }).click();
