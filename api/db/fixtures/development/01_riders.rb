@@ -55,5 +55,39 @@ Rider.seed_once(:id,
     nationality: "Japan",
     birthday: "1983-04-10"
   },
-
+  {
+    id: 9,
+    family_name: "Vingegaard",
+    given_name: "Jonas",
+    nationality: "Denmark",
+    birthday: "1996-12-10"
+  },
+  {
+    id: 10,
+    family_name: "Kuss",
+    given_name: "Sepp",
+    nationality: "USA",
+    birthday: "1994-09-13"
+  },
+  {
+    id: 11,
+    given_name: "Thomas",
+    family_name: "Geraint",
+    nationality: "UK",
+    birthday: "1986-05-25"
+  },
+  {
+    id: 12,
+    given_name: "Joao",
+    family_name: "Almeida",
+    nationality: "Portugal",
+    birthday: "1998-08-05"
+  },
+  {
+    id: 13,
+    given_name: "Adam",
+    family_name: "Yates",
+    nationality: "UK",
+    birthday: "1992-08-07"
+  }
 )

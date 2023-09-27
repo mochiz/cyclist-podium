@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_09_27_060856) do
+ActiveRecord::Schema[7.1].define(version: 2023_09_27_062437) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,6 +22,16 @@ ActiveRecord::Schema[7.1].define(version: 2023_09_27_060856) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "results", force: :cascade do |t|
+    t.bigint "race_id", null: false
+    t.bigint "rider_id", null: false
+    t.integer "ranking"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["race_id"], name: "index_results_on_race_id"
+    t.index ["rider_id"], name: "index_results_on_rider_id"
+  end
+
   create_table "riders", force: :cascade do |t|
     t.string "family_name", null: false
     t.string "given_name", null: false
@@ -31,4 +41,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_09_27_060856) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "results", "races"
+  add_foreign_key "results", "riders"
 end
