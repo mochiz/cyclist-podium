@@ -11,6 +11,8 @@
 #  updated_at  :datetime         not null
 #
 class Rider < ApplicationRecord
+  has_many :results, dependent: :destroy
+
   def full_name
     if nationality == "Japan"    
       "#{family_name} #{given_name}"

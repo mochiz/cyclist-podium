@@ -10,4 +10,6 @@
 #  updated_at  :datetime         not null
 #
 class Race < ApplicationRecord
+  has_many :results, -> { order(:ranking) }, dependent: :destroy
+  has_many :riders, through: :results
 end
