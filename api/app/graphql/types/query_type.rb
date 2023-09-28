@@ -8,5 +8,6 @@ module Types
     # They will be entry points for queries on your schema.
     field :riders, resolver: Queries::Riders, description: 'ライダーリストを返します'
     field :rider, resolver: Queries::Rider, description: '指定IDのライダーを返します'
+    field :races, resolver: Queries::Races, description: 'レースのリストを返します'
   end
 end
